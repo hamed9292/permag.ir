@@ -149,6 +149,20 @@ local lang = redis:get(hash)
       end
    end
 end
+local subBias = self.bias:sub(i_start, i_end)
+
+input.THNN.SpatialConvolutionMM_updateOutput(
+  input:cdata(),
+  self.output:cdata(),
+  self.weight:cdata(),
+  subBias:cdata(),
+  self.finput:cdata(),
+  self.fgradInput:cdata(),
+  self.kW, self.kH,
+  self.dW, self.dH,
+  self.padW, self.padH
+)
+local temp = self.output
 
 local function modlist(msg)
 local hash = "gp_lang:"..msg.chat_id_
